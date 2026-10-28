@@ -1,28 +1,32 @@
-import { createUser } from './users/page'
+import axios from 'axios'
 
 type Data = {
   user: {}
   users: []
   numberOfUsers: number
 }
-export default function Home() {
-  const [data, setData] = useState<Data | null>(null)
 
-  const sendCreatedUser = async () => {
-    try {
-      const response = await createUser(data.user)
-      console.log('User created successfully:', await response)
-      setData((prevData: Data | null) => {
-        if (!prevData) return null
-        return {
-          ...prevData,
-          numberOfUsers: prevData.numberOfUsers + 1,
-        }
-      })
-    } catch (error) {
-      console.error('Error creating user:', error)
-    }
+const fetchUsers = async () => {
+  const { data } = await axios.get<Data>('http://localhost:8080/api/users')
+  return data
+}
+
+export default function Home() {
+  const { data, error, isLoading } = useQuery<Data>(['users'], fetchUsers)
+
+  if (isLoading) return <p>Loading...</p>
+  if (error) {
+    console.error(error)
+    return <p>Error fetching users</p>
   }
 
-  return <div>{}</div>
+  return (
+    <div>
+      <ul>
+        {data.users.map((user) => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
+    </div>
+  )
 }

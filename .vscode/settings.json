@@ -1,0 +1,14 @@
+{
+  "[javascript][javascriptreact][typescript][typescriptreact][json][jsonc][css][markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.fixAll.stylelint": "explicit"
+    }
+  },
+  "eslint.workingDirectories": ["./fe"],
+  "stylelint.validate": ["css"],
+  "css.validate": false,
+  "prettier.requireConfig": true
+}
