@@ -5,3 +5,7 @@ coverage
 node_modules
 next-env.d.ts
 package-lock.json
+
+# OpenSpec-managed files (generated / parsed by the openspec CLI)
+.claude
+openspec
